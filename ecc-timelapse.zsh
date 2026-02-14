@@ -7,6 +7,8 @@
 
 emulate -L zsh
 
+VERSION="0.1.0"
+
 # Preserve arguments: `set -euo pipefail` in zsh will clobber $@ by treating
 # `pipefail` as a positional parameter.
 typeset -a ORIG_ARGS
@@ -23,7 +25,7 @@ PROG="${0:t}"
 usage() {
   cat <<'EOF'
 Usage:
-  ./ecc-timelapse.zsh [--dry-run] [--keep-frames] [--force] [--verbose] [--sync-only|--render-only] [--list-remote] [--print <remote-folder>|--print-one] [--input <local-dir>]
+  ./ecc-timelapse.zsh [--version] [--dry-run] [--keep-frames] [--force] [--verbose] [--sync-only|--render-only] [--list-remote] [--print <remote-folder>|--print-one] [--input <local-dir>]
 
 Local layout (created lazily under ./ecc/):
   ./ecc/incoming   - synced frames (future)
@@ -39,6 +41,7 @@ Environment variables (defaults shown):
 
 Flags:
   --help            Show this help and exit
+  --version         Print version and exit
   --dry-run         Print what would be done; do not create directories
   --keep-frames     Do not delete ./ecc/incoming/<print-folder>/ after a successful render
   --force           Allow overwriting/refreshing state (placeholder)
@@ -880,6 +883,10 @@ while (( $# > 0 )); do
   case "$1" in
     -h|--help)
       usage
+      exit 0
+      ;;
+    --version)
+      print -r -- "$PROG $VERSION"
       exit 0
       ;;
     --dry-run)
