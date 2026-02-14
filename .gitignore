@@ -1,0 +1,8 @@
+.DS_Store
+
+# Local runtime artifacts
+ecc/
+.sisyphus/
+
+# Generated media
+*.mp4
